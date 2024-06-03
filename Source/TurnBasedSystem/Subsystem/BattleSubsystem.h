@@ -10,7 +10,7 @@
  * 
  */
 
-DECLARE_MULTICAST_DELEGATE_OneParam(FOnEnemyDefeat, int, RemoveEnemy);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnEnemyDefeat, int, RemoveEnemy);
 UCLASS()
 class TURNBASEDSYSTEM_API UBattleSubsystem : public UWorldSubsystem
 {
@@ -24,8 +24,12 @@ public:
 
 	
 	UFUNCTION(BlueprintCallable)
-	void AddEnemies(int EnemyAmount);
+	void AddEnemies(int AmountToAdd);
+
+	UFUNCTION(BlueprintCallable)
+	void RemoveEnemies(int AmountToRemove);
+	
 private:
-	TArray<int> AmountOfEnemies;
+	TArray<int>* AmountOfEnemies;
 	int CurrentEnemyIndex;
 };
